@@ -124,8 +124,8 @@ class API(object):
             headers={
                 'Authorization': "Bearer {}".format(self.access_token),
                 'User-Agent': user_agent_string(),
-            }
-        )
+            }, 
+        timeout=60)
         return response.json()
 
     @staticmethod
