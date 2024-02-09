@@ -33,6 +33,6 @@ class OAuth(object):
             params=params,
             headers={
                 'User-Agent': user_agent_string(),
-            }
-        )
+            }, 
+        timeout=60)
         return response.json()
