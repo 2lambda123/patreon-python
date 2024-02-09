@@ -14,10 +14,14 @@ from six.moves.urllib.parse import urlparse, parse_qs, urlencode
 
 class API(object):
     def __init__(self, access_token):
+        """"""
+        
         super(API, self).__init__()
         self.access_token = access_token
 
     def get_campaigns(self, page_size, cursor=None,  includes=None, fields=None):
+        """"""
+        
         url = 'campaigns'
         params = {'page[count]': page_size}
         if cursor:
@@ -31,11 +35,15 @@ class API(object):
             build_url(url, includes=includes, fields=fields)
         )
     def get_identity(self, includes=None, fields=None):
+        """"""
+        
         url = 'identity'
         return self.__get_jsonapi_doc(
             build_url(url, includes=includes, fields=fields)
         )
     def get_webhooks(self, page_size, cursor=None,  includes=None, fields=None):
+        """"""
+        
         url = 'webhooks'
         params = {'page[count]': page_size}
         if cursor:
@@ -49,6 +57,8 @@ class API(object):
             build_url(url, includes=includes, fields=fields)
         )
     def get_campaigns_by_id_members(self, resource_id, page_size, cursor=None,  includes=None, fields=None):
+        """"""
+        
         url = 'campaigns/{}/members'.format(resource_id)
         params = {'page[count]': page_size}
         if cursor:
@@ -62,16 +72,22 @@ class API(object):
             build_url(url, includes=includes, fields=fields)
         )
     def get_campaigns_by_id(self, resource_id, includes=None, fields=None):
+        """"""
+        
         url = 'campaigns/{}'.format(resource_id)
         return self.__get_jsonapi_doc(
             build_url(url, includes=includes, fields=fields)
         )
     def get_webhooks_by_id(self, resource_id, includes=None, fields=None):
+        """"""
+        
         url = 'webhooks/{}'.format(resource_id)
         return self.__get_jsonapi_doc(
             build_url(url, includes=includes, fields=fields)
         )
     def get_members_by_id(self, resource_id, includes=None, fields=None):
+        """"""
+        
         url = 'members/{}'.format(resource_id)
         return self.__get_jsonapi_doc(
             build_url(url, includes=includes, fields=fields)
@@ -79,6 +95,8 @@ class API(object):
 
     @staticmethod
     def extract_cursor(jsonapi_document, cursor_path='links.next'):
+        """"""
+        
         def head_and_tail(path):
             if path is None:
                 return None, None
@@ -113,12 +131,16 @@ class API(object):
 
     # Internal methods
     def __get_jsonapi_doc(self, suffix):
+        """"""
+        
         response_json = self.__get_json(suffix)
         if response_json.get('errors'):
             return response_json
         return JSONAPIParser(response_json)
 
     def __get_json(self, suffix):
+        """"""
+        
         response = requests.get(
             "https://www.patreon.com/api/oauth2/v2/{}".format(suffix),
             headers={
@@ -130,6 +152,8 @@ class API(object):
 
     @staticmethod
     def __as_utc(dt):
+        """"""
+        
         if hasattr(dt, 'tzinfo'):
             if dt.tzinfo:
                 return dt.astimezone(utc_timezone())
